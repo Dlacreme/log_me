@@ -1,0 +1,19 @@
+#login {
+
+  form {
+    margin-bottom: 100px;
+  }
+
+  .input-row {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 50px !important;
+    }
+  }
+
+  .actions {
+    margin-top: 30px;
+  }
+
+}

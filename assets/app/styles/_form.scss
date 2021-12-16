@@ -1,0 +1,46 @@
+.input-row {
+  display: flex;
+}
+
+input, textarea {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+
+  div, button, a, span {
+    margin-left: 18px;
+  }
+}
+
+button, .button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 2px;
+  border: 0;
+  background-color: $color-dark;
+  color: white;
+  font-weight: 400;
+  border-radius: 12px;
+  min-width: 140px;
+  height: 42px;
+  min-height: 42px;
+  font-size: 1em;
+
+  &:hover {
+    color: white;
+  }
+  i {
+    margin-right: 8px;
+    font-weight: bold;
+    margin-top: 2px;
+  }
+}

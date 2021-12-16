@@ -40,9 +40,13 @@ defmodule LogMe.Schemas.Users do
   end
 
   defp maybe_hash_password(changeset) do
-    password = get_change(changeset, :password)
+    case get_change(changeset, :password) do
+      nil ->
+        changeset
 
-    changeset
-    |> put_change(:password, Bcrypt.hash_pwd_salt(password))
+      password ->
+        changeset
+        |> put_change(:password, Bcrypt.hash_pwd_salt(password))
+    end
   end
 end

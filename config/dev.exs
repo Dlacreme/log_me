@@ -25,7 +25,8 @@ config :log_me, LogMeWeb.Endpoint,
   secret_key_base: "Tzq7KrmGs0xzlUdnHZeCbse+1xOuCbP75n3OQj9klBSVVdAt/3d2oP74H+Sti6EO",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    npm: ["run", "watch", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # ## SSL Support

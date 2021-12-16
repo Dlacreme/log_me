@@ -1,0 +1,21 @@
+<div id="login" class="flex col center container login">
+<h1>Log in</h1>
+<%= form_for @login_changeset, Routes.auth_path(LogMeWeb.Endpoint, :login_post), fn f -> %>
+    <div class="input-row">
+    <%= email_input f, :email, required: true, placeholder: "Email" %>
+    </div>
+
+    <div class="input-row">
+    <%= password_input f, :password, required: true, placeholder: "********" %>
+    </div>
+
+    <div class="input-row flex flex-row remember-me">
+    <%= checkbox f, :remember_me %>
+    <%= label f, :remember_me, "Remember me", [class: 'ml-2'] %>
+    </div>
+
+    <div class="actions">
+        <%= submit "Log in", [class: 'mt-8 mb-8 primary'] %>
+    </div>
+<% end %>
+</div>

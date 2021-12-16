@@ -1,4 +1,4 @@
-defmodule PB.Account.Token do
+defmodule LogMe.Account.Token do
   @moduledoc """
   Generates, Parse & validated all tokens used within LogMe
   """

@@ -1,6 +1,8 @@
 defmodule LogMeWeb.Router do
   use LogMeWeb, :router
 
+  import LogMeWeb.AuthPlug
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule LogMeWeb.Router do
     plug :put_root_layout, {LogMeWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -17,21 +20,11 @@ defmodule LogMeWeb.Router do
   scope "/", LogMeWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", IndexController, :index
+    get "/login", AuthController, :login
+    post "/login", AuthController, :login_post
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LogMeWeb do
-  #   pipe_through :api
-  # end
-
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
 
