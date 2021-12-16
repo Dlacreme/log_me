@@ -16,38 +16,33 @@ defmodule LogMe.Schemas.Users do
   end
 
   @doc false
-  def changeset(users, attrs) do
+  def changeset_register(users, attrs) do
     users
     |> cast(attrs, [:email, :password, :role_id, :username, :picture_url, :validated_at])
     |> validate_required([:email, :password, :role_id])
     |> validate_email()
-    |> validate_password(attrs)
+    |> validate_password()
   end
 
   defp validate_email(changeset) do
     changeset
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "invalid email")
     |> validate_length(:email, max: 160)
-    |> unsafe_validate_unique(:email, PB.Repo)
+    |> unsafe_validate_unique(:email, LogMe.Repo)
     |> unique_constraint(:email)
   end
 
-  defp validate_password(changeset, opts) do
+  defp validate_password(changeset) do
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 80)
-    |> maybe_hash_password(opts)
+    |> maybe_hash_password()
   end
 
-  defp maybe_hash_password(changeset, opts) do
-    hash_password? = Keyword.get(opts, :hash_password, true)
+  defp maybe_hash_password(changeset) do
     password = get_change(changeset, :password)
 
-    if hash_password? && password && changeset.valid? do
-      changeset
-      |> put_change(:password, Bcrypt.hash_pwd_salt(password))
-    else
-      changeset
-    end
+    changeset
+    |> put_change(:password, Bcrypt.hash_pwd_salt(password))
   end
 end

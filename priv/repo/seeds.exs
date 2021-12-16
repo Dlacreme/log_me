@@ -1,11 +1,7 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     LogMe.Repo.insert!(%LogMe.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+%LogMe.Schemas.Users{}
+|> LogMe.Schemas.Users.changeset_register(%{
+  email: "admin@logme.com",
+  password: "toto4242",
+  role_id: "admin"
+})
+|> LogMe.Repo.insert()
