@@ -18,6 +18,9 @@ config :log_me, LogMeWeb.Endpoint,
   pubsub_server: LogMe.PubSub,
   live_view: [signing_salt: "P0HELgiN"]
 
+# Crypt signer for Joken
+config :joken, default_signer: "o4bbROJAr/gpgUhz+7IQeuiQmhtBkDJ/QMmFGhIGqN0n+EP2OgqDRN25E+HXFc79"
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
