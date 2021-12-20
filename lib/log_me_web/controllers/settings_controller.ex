@@ -4,7 +4,7 @@ defmodule LogMeWeb.SettingsController do
   alias LogMe.Repo
 
   def index(%{assigns: %{current_user: %{id: id}}} = conn, _params) do
-    conn |> render(:index, api: api(), team: team(id))
+    conn |> render(:index, api: api(), team: team(id), project: project())
   end
 
   def invite(%{assigns: %{current_user: %{id: id}}} = conn, %{"users" => user_params}) do
@@ -39,5 +39,10 @@ defmodule LogMeWeb.SettingsController do
     do: %{
       users: LogMe.Account.User.list() |> Enum.filter(fn x -> x.id != current_user_id end),
       changeset: %Users{} |> Users.changeset_register(%{})
+    }
+
+  defp project(),
+    do: %{
+      project: Repo.all(LogMe.Schemas.Projects)
     }
 end
