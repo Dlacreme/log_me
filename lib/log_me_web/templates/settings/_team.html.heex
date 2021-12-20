@@ -1,0 +1,52 @@
+<section class="card">
+<div class="flex">
+    <h2>Team</h2>
+    <div class="flex-grow"></div>
+    <button onclick="openTeamMember()"><%= icon "add" %>Invite a new team member</button>
+</div>
+    <%= for user <- @users do %>
+    <div class="flex align-center">
+        <div class="name flex-grow">
+        <%= user_name(user) %>
+        </div>
+        <div class="actions">
+
+        <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :remove_from_team), fn f -> %>
+        <%= text_input f, :id, value: user.id, type: "hidden" %>
+        <%= submit icon("delete"), class: "button light" %>
+        <% end %>
+        </div>
+
+    </div>
+    <% end %>
+</section>
+
+<div class="modal-container" id="add-team-member">
+    <div class="flex center full">
+    <div class="modal">
+    <h3>
+    Invite a new team member
+    </h3>
+        <%= form_for @changeset, Routes.settings_path(LogMeWeb.Endpoint, :invite), fn f -> %>
+        <div class="input-row">
+        <%= email_input f, :email, required: true, placeholder: "Email", class: "w-full" %>
+        </div>
+        <br/>
+        <div class="input-row">
+        <%= password_input f, :password, required: true, placeholder: "Default password", class: "w-full" %>
+        </div>
+        <br />
+        <div class="actions">
+            <button class="light" onclick="window.app.modal.close('add-team-member')">Close</button>
+            <%= submit "Invite", [class: 'mt-8 mb-8 primary'] %>
+        </div>
+    <% end %>
+    </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+function openTeamMember() {
+    window.app.modal.open('add-team-member');
+}
+</script>
