@@ -50,6 +50,11 @@ button, .button {
   }
 }
 
+button.light, .button.light{
+  background-color: transparent;
+  color: $color-dark;
+}
+
 button.sm, .button.sm {
   min-width: 60px;
 }

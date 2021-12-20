@@ -4,6 +4,10 @@ defmodule LogMe.Account.User do
 
   import Ecto.Query, only: [from: 2]
 
+  @spec list() :: list(Users.t())
+  def list(),
+    do: Repo.all(Users)
+
   @spec get(Ecto.UUID.t()) :: Users.t() | nil
   def get(id) do
     Repo.one(from u in Users, where: u.id == ^id)

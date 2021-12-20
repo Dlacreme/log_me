@@ -29,6 +29,8 @@ defmodule LogMeWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/", SettingsController, :index
+    post "/invite", SettingsController, :invite
+    post "/remove-from-team", SettingsController, :remove_from_team
   end
 
   if Mix.env() in [:dev, :test] do
