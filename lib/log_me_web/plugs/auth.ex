@@ -26,6 +26,13 @@ defmodule LogMeWeb.AuthPlug do
     end
   end
 
+  def require_authenticated_user(conn, _opts) do
+    require_authenticate_role(conn, [
+      LogMe.Account.Const.UserRole.user(),
+      LogMe.Account.Const.UserRole.admin()
+    ])
+  end
+
   def require_authenticated_admin(conn, _opts) do
     require_authenticate_role(conn, [LogMe.Account.Const.UserRole.admin()])
   end

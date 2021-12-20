@@ -18,7 +18,10 @@
         </a>
         <div class="flex-grow">&nbsp;</div>
         <%= if Map.has_key?(assigns, :current_user) && @current_user != nil do %>
-        <%= @current_user.email %>
+        <%= user_name(@current_user) %>
+        <a class="button sm" href={Routes.settings_path(@conn, :index)}>
+        <%= icon("settings") %>
+        </a>
         <% else %>
         <a href={Routes.auth_path(@conn, :login)}>Log in</a>
         <% end %>

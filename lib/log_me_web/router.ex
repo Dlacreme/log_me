@@ -25,6 +25,12 @@ defmodule LogMeWeb.Router do
     post "/login", AuthController, :login_post
   end
 
+  scope "/settings", LogMeWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/", SettingsController, :index
+  end
+
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
 

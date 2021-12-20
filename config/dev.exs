@@ -1,5 +1,8 @@
 import Config
 
+config :log_me,
+  api_key: "O1qpiGRP3BdvSH7WzjGf9HJNNUuRTLAH1uLEH6KXx4bVUaH3ZYhd0ryVT4+tveW0"
+
 # Configure your database
 config :log_me, LogMe.Repo,
   username: "postgres",

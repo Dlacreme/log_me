@@ -1,5 +1,9 @@
 .input-row {
   display: flex;
+  align-items: center;
+  label {
+    margin-right: 20px;
+  }
 }
 
 input, textarea {
@@ -38,9 +42,14 @@ button, .button {
   &:hover {
     color: white;
   }
+
   i {
     margin-right: 8px;
     font-weight: bold;
     margin-top: 2px;
   }
+}
+
+button.sm, .button.sm {
+  min-width: 60px;
 }

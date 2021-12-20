@@ -13,6 +13,14 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
 end
 
 if config_env() == :prod do
+  api_key =
+    System.get_env("API_KEY") ||
+      raise """
+      API KEY env key is missing. This is a requirement in production
+      """
+
+  config :log_me, api_key: api_key
+
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """

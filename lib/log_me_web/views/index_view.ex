@@ -1,3 +1,3 @@
 defmodule LogMeWeb.IndexView do
-  use LogMeWeb, :view
+  use LogMeWeb.BaseView
 end

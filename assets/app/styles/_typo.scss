@@ -1,3 +1,24 @@
 .text-right {
   text-align: right;
 }
+
+p.highlight {
+  margin: 10px ;
+  padding: 10px 15px;
+  border-radius: 4px;
+  color: #727275;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+
+  i {
+    color: #dfdf4e;
+    font-size: 1.4em;
+    margin-right: 10px;
+  }
+}
+
+.highlight.info {
+  background-color: #dee3e6;
+  border: 1px solid #ccc;
+}

@@ -1,3 +1,3 @@
 defmodule LogMeWeb.AuthView do
-  use LogMeWeb, :view
+  use LogMeWeb.BaseView
 end
