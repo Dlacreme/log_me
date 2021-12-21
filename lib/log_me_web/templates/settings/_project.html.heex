@@ -14,7 +14,8 @@
     <div class="actions">
     <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :project_remove), fn f -> %>
         <%= text_input f, :id, value: project.id, type: "hidden" %>
-        <%= submit icon("delete"), class: "button light" %>
+        <%= submit icon("delete"), class: "button light hidden" %>
+        <button type="button"><%= icon "delete" %></button>
         <% end %>
     </div>
     </div>
@@ -40,5 +41,9 @@
 </div>
 
 <script type="text/javascript">
-
+function removeProject() {
+    window.app.dialog.open({
+        label: 'Hello World'
+    });
+}
 </script>

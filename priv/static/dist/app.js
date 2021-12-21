@@ -32,10 +32,16 @@ var Type;
 })(Type || (Type = {}));
 class Dialog {
   constructor() {
+    this.templateIds = {
+      host: "template-dialog",
+      label: "template-dialog-label"
+    };
   }
   open(type, options) {
     return new Promise((onRes, onErr) => {
       console.log("hello");
+      document.getElementById(this.templateIds.host);
+      console.log("template");
     });
   }
 }
