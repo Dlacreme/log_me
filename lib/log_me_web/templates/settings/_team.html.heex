@@ -13,7 +13,8 @@
 
         <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :team_remove), fn f -> %>
         <%= text_input f, :id, value: user.id, type: "hidden" %>
-        <%= submit icon("delete"), class: "button light" %>
+        <%= submit "", class: "button light", style: "display:none", id: "team-button-remove-#{user.id}" %>
+        <button onclick={"removeTeamMember('#{user.id}')"} type="button"  class="light"><%= icon "delete" %></button>
         <% end %>
         </div>
 
@@ -46,5 +47,14 @@
 </div>
 
 <script type="text/javascript">
-
+function removeTeamMember(id) {
+    window.app.dialog.confirmation({
+        title: 'Are you sure?',
+        label: 'Do you really want to delete this member?'
+    }).then((confirmed) => {
+        if (confirmed) {
+            document.getElementById(`team-button-remove-${id}`).click()
+        }
+    });
+}
 </script>

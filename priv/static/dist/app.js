@@ -32,17 +32,50 @@ var Type;
 })(Type || (Type = {}));
 class Dialog {
   constructor() {
+    this.currentDialog = void 0;
     this.templateIds = {
-      host: "template-dialog",
+      container: "dialog-container",
+      template: "template-dialog",
+      title: "template-dialog-title",
       label: "template-dialog-label"
     };
   }
   open(type, options) {
+    this.cancelCurrentDialog();
     return new Promise((onRes, onErr) => {
-      console.log("hello");
-      document.getElementById(this.templateIds.host);
-      console.log("template");
+      this.currentDialogOnRes = onRes;
+      this.currentDialogOnErr = onErr;
+      const templateContent = document.getElementById(this.templateIds.template).content.cloneNode(true);
+      this.findAndFill(templateContent, this.templateIds.title, options.title);
+      this.findAndFill(templateContent, this.templateIds.label, options.label);
+      document.getElementById(this.templateIds.container).replaceChildren(templateContent);
     });
+  }
+  confirm() {
+    this.emptyContainer();
+    this.currentDialogOnRes(true);
+    this.currentDialog = void 0;
+  }
+  cancel() {
+    this.emptyContainer();
+    this.currentDialogOnRes(false);
+    this.currentDialog = void 0;
+  }
+  findAndFill(template, id, content) {
+    const el = template.querySelector(`#${id}`);
+    el.innerText = content;
+    el.id = "";
+  }
+  emptyContainer() {
+    document.getElementById(this.templateIds.container).replaceChildren();
+  }
+  cancelCurrentDialog() {
+    if (!this.currentDialog) {
+      return;
+    }
+    this.emptyContainer();
+    this.currentDialogOnErr("another dialog opened");
+    this.currentDialog = void 0;
   }
 }
 window.app = {};
@@ -50,6 +83,8 @@ const appWindow = new AppWindow();
 appWindow.attach("display", Display.helpers());
 const dialog = new Dialog();
 appWindow.attach("dialog", {
-  confirmation: (options) => dialog.open(Type.Confirmation, options)
+  confirmation: (options) => dialog.open(Type.Confirmation, options),
+  confirm: () => dialog.confirm(),
+  cancel: () => dialog.cancel()
 });
 LiveState.init();

@@ -12,7 +12,9 @@ appWindow.attach('display', Display.helpers());
 /* Display a modal that requires confirmation from users */
 const dialog = new Dialog();
 appWindow.attach('dialog', {
-  confirmation: (options) => dialog.open(DialogType.Confirmation, options)
+  confirmation: (options) => dialog.open(DialogType.Confirmation, options),
+  confirm: () => dialog.confirm(),
+  cancel: () => dialog.cancel(),
 });
 
 LiveState.init();

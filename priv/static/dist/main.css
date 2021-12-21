@@ -19,7 +19,7 @@ input, textarea {
 .actions div, .actions button, .actions a, .actions span {
   margin-left: 18px;
 }
-button, .button, [type=submit] {
+button, .button, [type=submit], [type=button] {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -35,16 +35,19 @@ button, .button, [type=submit] {
   min-height: 42px;
   font-size: 1em;
 }
-button:hover, .button:hover, [type=submit]:hover {
+button:hover, .button:hover, [type=submit]:hover, [type=button]:hover {
   color: white;
 }
-button i, .button i, [type=submit] i {
+button i, .button i, [type=submit] i, [type=button] i {
   margin-right: 8px;
   font-weight: bold;
   margin-top: 2px;
 }
 button.light, .button.light {
   background-color: transparent;
+  color: #282828;
+}
+button.light:hover, .button.light:hover {
   color: #282828;
 }
 button.sm, .button.sm {
@@ -78,6 +81,14 @@ p.highlight i {
 }
 .highlight.info {
   background-color: #dee3e6;
+  border: 1px solid #ccc;
+}
+#dialog-container .dialog-background {
+  background-color: #332f2f91;
+}
+#dialog-container .dialog-content {
+  background-color: white;
+  width: 640px;
   border: 1px solid #ccc;
 }
 #login form {

@@ -1,4 +1,18 @@
 <template id="template-dialog">
-    <div id="template-dialog-label">
+    <div class="dialog-background absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+    <div class="dialog-content p-12">
+        <h3 id="template-dialog-title"></h3>
+        <div id="template-dialog-label"></div>
+        <div class="actions mt-12 flex">
+        <button onclick="window.app.dialog.confirm()">
+            Yes
+        </button>
+        <button onclick="window.app.dialog.cancel()">
+            No
+        </button>
+        </div>
+    </div>
     </div>
 </template>
+<div id="dialog-container">
+</div>
