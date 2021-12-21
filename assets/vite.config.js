@@ -7,7 +7,7 @@ export default {
     emptyOutDir: true,
     assetsInlineLimit: 0,
     rollupOptions: {
-      input: ["app/styles/main.scss", "./core.js", "app/app.ts"],
+      input: ["./core.css", "app/styles/main.scss", "./core.js", "app/app.ts"],
       output: {
         entryFileNames: "dist/[name].js",
         chunkFileNames: "dist/[name].js",

@@ -1,4 +1,4 @@
 <h1>Settings</h1>
+<%= render "_project.html", conn: @conn, projects: @project.projects, changeset: @project.changeset %>
 <%= render "_team.html", users: @team.users, changeset: @team.changeset, conn: @conn %>
 <%= render "_api.html", api_key: @api.key %>
-<%= render "_project.html" %>

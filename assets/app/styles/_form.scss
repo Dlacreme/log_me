@@ -22,7 +22,7 @@ input, textarea {
   }
 }
 
-button, .button {
+button, .button, [type="submit"] {
   cursor: pointer;
   display: flex;
   justify-content: center;

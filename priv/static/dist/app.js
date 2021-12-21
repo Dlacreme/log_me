@@ -4,15 +4,15 @@ class LiveState {
     window.addEventListener("phx:page-loading-stop", (info) => console.log("stop", info));
   }
 }
-class Modal {
+class Display {
   constructor() {
   }
   static helpers() {
     return {
-      open: (id) => {
+      show: (id) => {
         document.getElementById(id).style.display = "block";
       },
-      close: (id) => {
+      hide: (id) => {
         document.getElementById(id).style.display = "none";
       }
     };
@@ -26,7 +26,24 @@ class AppWindow {
     window.app[key] = obj;
   }
 }
+var Type;
+(function(Type2) {
+  Type2["Confirmation"] = "confirmation";
+})(Type || (Type = {}));
+class Dialog {
+  constructor() {
+  }
+  open(type, options) {
+    return new Promise((onRes, onErr) => {
+      console.log("hello");
+    });
+  }
+}
 window.app = {};
 const appWindow = new AppWindow();
-appWindow.attach("modal", Modal.helpers());
+appWindow.attach("display", Display.helpers());
+const dialog = new Dialog();
+appWindow.attach("dialog", {
+  confirmation: (options) => dialog.open(Type.Confirmation, options)
+});
 LiveState.init();
