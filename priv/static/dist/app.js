@@ -4,15 +4,15 @@ class LiveState {
     window.addEventListener("phx:page-loading-stop", (info) => console.log("stop", info));
   }
 }
-class Modal {
+class Display {
   constructor() {
   }
   static helpers() {
     return {
-      open: (id) => {
+      show: (id) => {
         document.getElementById(id).style.display = "block";
       },
-      close: (id) => {
+      hide: (id) => {
         document.getElementById(id).style.display = "none";
       }
     };
@@ -26,7 +26,65 @@ class AppWindow {
     window.app[key] = obj;
   }
 }
+var Type;
+(function(Type2) {
+  Type2["Confirmation"] = "confirmation";
+})(Type || (Type = {}));
+class Dialog {
+  constructor() {
+    this.currentDialog = void 0;
+    this.templateIds = {
+      container: "dialog-container",
+      template: "template-dialog",
+      title: "template-dialog-title",
+      label: "template-dialog-label"
+    };
+  }
+  open(type, options) {
+    this.cancelCurrentDialog();
+    return new Promise((onRes, onErr) => {
+      this.currentDialogOnRes = onRes;
+      this.currentDialogOnErr = onErr;
+      const templateContent = document.getElementById(this.templateIds.template).content.cloneNode(true);
+      this.findAndFill(templateContent, this.templateIds.title, options.title);
+      this.findAndFill(templateContent, this.templateIds.label, options.label);
+      document.getElementById(this.templateIds.container).replaceChildren(templateContent);
+    });
+  }
+  confirm() {
+    this.emptyContainer();
+    this.currentDialogOnRes(true);
+    this.currentDialog = void 0;
+  }
+  cancel() {
+    this.emptyContainer();
+    this.currentDialogOnRes(false);
+    this.currentDialog = void 0;
+  }
+  findAndFill(template, id, content) {
+    const el = template.querySelector(`#${id}`);
+    el.innerText = content;
+    el.id = "";
+  }
+  emptyContainer() {
+    document.getElementById(this.templateIds.container).replaceChildren();
+  }
+  cancelCurrentDialog() {
+    if (!this.currentDialog) {
+      return;
+    }
+    this.emptyContainer();
+    this.currentDialogOnErr("another dialog opened");
+    this.currentDialog = void 0;
+  }
+}
 window.app = {};
 const appWindow = new AppWindow();
-appWindow.attach("modal", Modal.helpers());
+appWindow.attach("display", Display.helpers());
+const dialog = new Dialog();
+appWindow.attach("dialog", {
+  confirmation: (options) => dialog.open(Type.Confirmation, options),
+  confirm: () => dialog.confirm(),
+  cancel: () => dialog.cancel()
+});
 LiveState.init();

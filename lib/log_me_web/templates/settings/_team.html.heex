@@ -2,7 +2,7 @@
 <div class="flex">
     <h2>Team</h2>
     <div class="flex-grow"></div>
-    <button onclick="openTeamMember()"><%= icon "add" %>Invite a new team member</button>
+    <button onclick="window.app.display.show('add-team-member')"><%= icon "add" %>Invite a new team member</button>
 </div>
     <%= for user <- @users do %>
     <div class="flex align-center">
@@ -11,9 +11,10 @@
         </div>
         <div class="actions">
 
-        <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :remove_from_team), fn f -> %>
+        <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :team_remove), fn f -> %>
         <%= text_input f, :id, value: user.id, type: "hidden" %>
-        <%= submit icon("delete"), class: "button light" %>
+        <%= submit "", class: "button light", style: "display:none", id: "team-button-remove-#{user.id}" %>
+        <button onclick={"removeTeamMember('#{user.id}')"} type="button"  class="light"><%= icon "delete" %></button>
         <% end %>
         </div>
 
@@ -22,12 +23,12 @@
 </section>
 
 <div class="modal-container" id="add-team-member">
-    <div class="flex center full">
+    <div class="flex justify-center items-center h-full">
     <div class="modal">
-    <h3>
+    <h3 class="mb-8 mt-4">
     Invite a new team member
     </h3>
-        <%= form_for @changeset, Routes.settings_path(LogMeWeb.Endpoint, :invite), fn f -> %>
+        <%= form_for @changeset, Routes.settings_path(LogMeWeb.Endpoint, :team_add), fn f -> %>
         <div class="input-row">
         <%= email_input f, :email, required: true, placeholder: "Email", class: "w-full" %>
         </div>
@@ -37,7 +38,7 @@
         </div>
         <br />
         <div class="actions">
-            <button class="light" onclick="window.app.modal.close('add-team-member')">Close</button>
+            <button class="light" onclick="window.app.display.hide('add-team-member')">Close</button>
             <%= submit "Invite", [class: 'mt-8 mb-8 primary'] %>
         </div>
     <% end %>
@@ -46,7 +47,14 @@
 </div>
 
 <script type="text/javascript">
-function openTeamMember() {
-    window.app.modal.open('add-team-member');
+function removeTeamMember(id) {
+    window.app.dialog.confirmation({
+        title: 'Are you sure?',
+        label: 'Do you really want to delete this member?'
+    }).then((confirmed) => {
+        if (confirmed) {
+            document.getElementById(`team-button-remove-${id}`).click()
+        }
+    });
 }
 </script>

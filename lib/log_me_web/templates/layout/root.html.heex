@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "Log Me" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/dist/core.css")}"/>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/dist/main.css")}"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/dist/core.js")}></script>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/dist/app.js")}></script>
   </head>
-  <body class="flex flex-row">
-    <header class="flex row center">
+  <body class="flex">
+    <header class="flex row items-center">
         <a href={Routes.index_path(@conn, :index)} class="phx-logo">
             <img src={Routes.static_path(@conn, "/images/logo.png")} alt="Logo to homepage"/>
         </a>
@@ -27,5 +28,7 @@
         <% end %>
     </header>
     <%= @inner_content %>
-  </body>
+
+    <%= render "_dialog.html" %>
+    </body>
 </html>

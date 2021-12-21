@@ -1,17 +1,17 @@
 interface Helpers {
-  open(id: string): void;
-  close(id: string): void;
+  show(id: string): void;
+  hide(id: string): void;
 }
 
-export class Modal {
+export class Display {
   constructor() { }
 
   static helpers(): Helpers {
     return {
-      open: (id: string): void => {
+      show: (id: string): void => {
         document.getElementById(id).style.display = 'block';
       },
-      close: (id: string): void => {
+      hide: (id: string): void => {
         document.getElementById(id).style.display = 'none';
       }
     }

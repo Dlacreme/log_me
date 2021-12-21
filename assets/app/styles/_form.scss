@@ -22,7 +22,7 @@ input, textarea {
   }
 }
 
-button, .button {
+button, .button, [type="submit"], [type="button"] {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -53,6 +53,10 @@ button, .button {
 button.light, .button.light{
   background-color: transparent;
   color: $color-dark;
+
+  &:hover {
+    color: $color-dark;
+  }
 }
 
 button.sm, .button.sm {

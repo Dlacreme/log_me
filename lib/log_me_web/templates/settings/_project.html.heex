@@ -1,3 +1,54 @@
-<div>
-project
+<section class="card">
+    <div class="flex">
+    <h2>Projects</h2>
+    <div class="flex-grow"></div>
+    <button onclick="window.app.display.show('add-project')">
+        <%= icon "add" %>Add a new project
+    </button>
+    </div>
+    <%= for project <- @projects do %>
+    <div class="flex">
+    <div class="flex-grow">
+        <%= project.label %>
+    </div>
+    <div class="actions">
+    <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :project_remove), fn f -> %>
+        <%= text_input f, :id, value: project.id, type: "hidden" %>
+        <%= submit "", class: "button light hidden", style: "display:none", id: "project-button-remove-#{project.id}" %>
+        <button onclick={"removeProject('#{project.id}')"} type="button" class="light"><%= icon "delete" %></button>
+        <% end %>
+    </div>
+    </div>
+    <% end %>
+</section>
+
+<div class="modal-container" id="add-project">
+<div class="flex justify-center items-center h-full">
+    <div class="modal">
+    <h3 class="mb-8 mt-4">Create a new project</h3>
+    <%= form_for @changeset, Routes.settings_path(LogMeWeb.Endpoint, :project_add), fn f -> %>
+        <div class="input-row">
+            <%= text_input f, :label, required: true, placeholder: "Label", class: "w-full" %>
+        </div>
+        <br/>
+        <div class="actions">
+          <button class="light" onclick="window.app.display.hide('add-project')">Close</button>
+            <%= submit "Create", [class: 'mt-8 mb-8 primary'] %>
+        </div>
+    <% end %>
+    </div>
 </div>
+</div>
+
+<script type="text/javascript">
+function removeProject(id) {
+    window.app.dialog.confirmation({
+        title: 'Are you sure?',
+        label: 'Do you really want to delete this project?'
+    }).then((confirmed) => {
+        if (confirmed) {
+            document.getElementById(`project-button-remove-${id}`).click()
+        }
+    });
+}
+</script>
