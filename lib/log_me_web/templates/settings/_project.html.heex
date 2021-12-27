@@ -12,10 +12,11 @@
         <%= project.label %>
     </div>
     <div class="actions">
+    <a class="button light small" href={"/settings/project/#{project.id}"}>Edit</a>
     <%= form_for @conn, Routes.settings_path(LogMeWeb.Endpoint, :project_remove), fn f -> %>
         <%= text_input f, :id, value: project.id, type: "hidden" %>
         <%= submit "", class: "button light hidden", style: "display:none", id: "project-button-remove-#{project.id}" %>
-        <button onclick={"removeProject('#{project.id}')"} type="button" class="light"><%= icon "delete" %></button>
+        <button onclick={"removeProject('#{project.id}')"} type="button" class="light xs"><%= icon "delete" %></button>
         <% end %>
     </div>
     </div>

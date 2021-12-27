@@ -8,7 +8,7 @@ defmodule LogMeWeb.SettingsController do
     conn |> render(:index, api: api(), team: team(id), project: project())
   end
 
-  def team_add(%{assigns: %{current_user: %{id: id}}} = conn, %{"users" => user_params}) do
+  def team_add(%{assigns: %{current_user: _user}} = conn, %{"users" => user_params}) do
     case %Users{}
          |> Users.changeset_register(Map.put_new(user_params, "role_id", "user"))
          |> Repo.insert() do
@@ -17,7 +17,7 @@ defmodule LogMeWeb.SettingsController do
         |> put_flash(:success, "User has been invited")
         |> redirect(to: Routes.settings_path(conn, :index))
 
-      {:error, err} ->
+      {:error, _err} ->
         conn
         |> put_flash(:error, "Failed to invite user")
         |> redirect(to: Routes.settings_path(conn, :index))
@@ -40,7 +40,7 @@ defmodule LogMeWeb.SettingsController do
         |> put_flash(:success, "Project created")
         |> redirect(to: Routes.settings_path(conn, :index))
 
-      {:error, err} ->
+      {:error, _err} ->
         conn
         |> put_flash(:error, "Failed to create project")
         |> redirect(to: Routes.settings_path(conn, :index))
@@ -53,6 +53,10 @@ defmodule LogMeWeb.SettingsController do
     conn
     |> put_flash(:success, "Project deleted")
     |> redirect(to: Routes.settings_path(conn, :index))
+  end
+
+  def project_log(conn, _params) do
+    conn |> render(:project)
   end
 
   defp api(),

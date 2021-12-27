@@ -120,15 +120,29 @@ section {
   }
 }
 
+.alert {
+  background-color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span.content {
+    margin-left: 30px;
+    flex-grow: 1;
+  }
+  span.icon {
+    width: 30px;
+    display: inline-block;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 
-
-// .alert {
-  // position: absolute;
-  // top: 70px;
-  // width: 80%;
-  // margin-left: 10%;
-  // background-color: white;
-  // border-radius: 4px;
-  // border: 1px solid #ccc;
-  // padding: 8px 15px;
-// }
+.alert.alert-danger {
+  background-color: #e86969;
+  color: white;
+}

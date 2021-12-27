@@ -50,8 +50,8 @@ button.light, .button.light {
 button.light:hover, .button.light:hover {
   color: #282828;
 }
-button.sm, .button.sm {
-  min-width: 60px;
+button.small, .button.small {
+  min-width: 0 !important;
 }
 h1 {
   font-size: 2em;
@@ -197,4 +197,28 @@ section {
   padding: 20px 50px;
   border-radius: 12px;
   border: 1px solid #ccc;
+}
+.alert {
+  background-color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.alert span.content {
+  margin-left: 30px;
+  flex-grow: 1;
+}
+.alert span.icon {
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.alert.alert-danger {
+  background-color: #e86969;
+  color: white;
 }

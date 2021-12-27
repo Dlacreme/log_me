@@ -78,6 +78,22 @@ class Dialog {
     this.currentDialog = void 0;
   }
 }
+class Flash {
+  constructor() {
+    this.flashContainers = [
+      "alert-info",
+      "alert-danger"
+    ];
+  }
+  clear() {
+    this.flashContainers.forEach((cl) => {
+      const el = document.getElementById(cl);
+      if (el && el.remove) {
+        el.remove();
+      }
+    });
+  }
+}
 window.app = {};
 const appWindow = new AppWindow();
 appWindow.attach("display", Display.helpers());
@@ -86,5 +102,9 @@ appWindow.attach("dialog", {
   confirmation: (options) => dialog.open(Type.Confirmation, options),
   confirm: () => dialog.confirm(),
   cancel: () => dialog.cancel()
+});
+const flash = new Flash();
+appWindow.attach("flash", {
+  clear: () => flash.clear()
 });
 LiveState.init();

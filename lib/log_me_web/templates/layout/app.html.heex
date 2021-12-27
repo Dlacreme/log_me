@@ -1,5 +1,20 @@
 <main id="main">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+<%= if get_flash(@conn, :info) do %>
+  <p id="alert-info" class="alert alert-info" role="alert">
+    <span class="content"><%= get_flash(@conn, :info) %></span>
+    <span class="icon" onclick="window.app.flash.clear()">
+    <%= icon "delete" %>
+    </span>
+  </p>
+  <% end %>
+
+<%= if get_flash(@conn, :error) do %>
+  <p id="alert-danger" class="alert alert-danger" role="alert">
+    <span class="content"><%= get_flash(@conn, :error) %></span>
+    <span class="icon" onclick="window.app.flash.clear()">
+    <%= icon "delete" %>
+    </span>
+  </p>
+  <% end %>
   <%= @inner_content %>
 </main>

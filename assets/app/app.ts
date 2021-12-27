@@ -2,6 +2,7 @@ import { LiveState } from './live_state';
 import { Display } from './display';
 import { AppWindow } from './window';
 import { Dialog, Type as DialogType } from './dialog';
+import { Flash } from './flash';
 
 (window as any).app = {};
 const appWindow = new AppWindow();
@@ -16,5 +17,10 @@ appWindow.attach('dialog', {
   confirm: () => dialog.confirm(),
   cancel: () => dialog.cancel(),
 });
+
+const flash = new Flash();
+appWindow.attach('flash', {
+  clear: () => flash.clear(),
+})
 
 LiveState.init();

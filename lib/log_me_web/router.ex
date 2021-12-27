@@ -33,6 +33,7 @@ defmodule LogMeWeb.Router do
     post "/team/remove", SettingsController, :team_remove
     post "/project/add", SettingsController, :project_add
     post "/project/remove", SettingsController, :project_remove
+    live "/project/:id", SettingsProjectLive
   end
 
   if Mix.env() in [:dev, :test] do

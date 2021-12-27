@@ -20,7 +20,7 @@
         <div class="flex-grow">&nbsp;</div>
         <%= if Map.has_key?(assigns, :current_user) && @current_user != nil do %>
         <%= user_name(@current_user) %>
-        <a class="button sm" href={Routes.settings_path(@conn, :index)}>
+        <a class="button xs" href={Routes.settings_path(@conn, :index)}>
         <%= icon("settings") %>
         </a>
         <% else %>
